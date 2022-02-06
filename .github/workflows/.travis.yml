@@ -1,0 +1,13 @@
+ # Java .travis.yml sample
+ language: java
+ jdk:
+   - openjdk8
+ script:
+   - gradle build
+   jobs:
+   include:
+     - stage: "Unit Tests & SonarCloud Analysis"
+       script:
+         - gradle jacocoTestReport
+         - gradle sonarqube -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY
+    - stage: "DEPLOY MY APP"
